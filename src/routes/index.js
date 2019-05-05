@@ -1,8 +1,9 @@
 const express = require('express')
 const routes = express.Router()
 
-const UserController = require('../controllers/User')
+const UserController = require('../controllers/UserController')
 
+routes.post('/authenticate', UserController.authenticate)
 routes.get('/users', UserController.index)
 routes.get('/users/:id', UserController.show)
 routes.post('/users', UserController.store)
