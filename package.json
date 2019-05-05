@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/server",
-    "dev": "nodemon ./src/server"
+    "start": "node ./src/Server",
+    "dev": "nodemon ./src/Server ignore ../__tests__",
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,6 +25,8 @@
     "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
-    "nodemon": "^1.18.10"
+    "jest": "^24.8.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
   }
 }

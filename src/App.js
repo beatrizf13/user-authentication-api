@@ -1,14 +1,15 @@
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+})
+
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
-const dotenv = require('dotenv')
 
 class App {
   constructor () {
     this.app = express()
-
-    dotenv.config()
 
     this.database()
     this.middlewares()
@@ -16,7 +17,7 @@ class App {
   }
 
   database () {
-    require('./database/index')
+    require('./Database')
   }
 
   middlewares () {
@@ -28,7 +29,7 @@ class App {
   }
 
   routes () {
-    this.app.use('/api', require('../src/routes'))
+    this.app.use('/api', require('./Routes'))
   }
 }
 
