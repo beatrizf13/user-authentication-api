@@ -3,18 +3,29 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
-const app = express()
+class App {
+  constructor () {
+    this.app = express()
+    this.database()
+    this.middlewares()
+    this.routes()
+  }
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(logger('dev'))
-app.use(cookieParser())
-app.use(cors())
+  database () {
+    require('./database/index')
+  }
 
-// database
-require('./database/index')
+  middlewares () {
+    this.app.use(express.json())
+    this.app.use(express.urlencoded({ extended: true }))
+    this.app.use(logger('dev'))
+    this.app.use(cookieParser())
+    this.app.use(cors())
+  }
 
-// creating routes
-app.use('/api', require('../src/routes'))
+  routes () {
+    this.app.use('/api', require('../src/routes'))
+  }
+}
 
-module.exports = app
+module.exports = new App().app
