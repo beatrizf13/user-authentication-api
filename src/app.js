@@ -2,10 +2,14 @@ const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
+const dotenv = require('dotenv')
 
 class App {
   constructor () {
     this.app = express()
+
+    dotenv.config()
+
     this.database()
     this.middlewares()
     this.routes()
