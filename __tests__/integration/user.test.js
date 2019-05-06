@@ -1,9 +1,9 @@
 /* eslint-disable */
 const request = require('supertest')
 const bcrypt = require('bcryptjs')
+const factory = require('../factories')
 
 const App = require('../../src/App')
-const User = require('../../src/Models/UserModel')
 const Trucate = require('../utils/Trucate')
 
 describe('User', () => {
@@ -18,9 +18,7 @@ describe('User', () => {
   })
 
   test('should encrypt user password', async () => {
-    const user = await User.create({
-      fullName: 'Beatriz Felix',
-      email: 'beatriz@beatriz.com',
+    const user = await factory.create('User', {
       password: 'mypass'
     })
 
