@@ -36,8 +36,7 @@ class UserController {
 
   async store (req, res) {
     try {
-      const { fullName, email } = req.body
-      const password = await bcrypt.hash(req.body.password, 10)
+      const { fullName, email, password } = req.body
 
       if (await User.findOne({ email })) {
         return res.status(400).send({ error: 'email already exists' })
