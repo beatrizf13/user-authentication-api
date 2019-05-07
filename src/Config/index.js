@@ -4,8 +4,8 @@ class Config {
   }
 
   getSecret () {
-    const secret = 'ab681ab35f8f6ee19b2c119406982b56'
-    return secret
+    const _secret = 'ab681ab35f8f6ee19b2c119406982b56'
+    return _secret
   }
 }
 

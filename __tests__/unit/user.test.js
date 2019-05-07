@@ -1,24 +1,27 @@
 /* eslint-disable */
 const request = require('supertest')
 const bcrypt = require('bcryptjs')
-const factory = require('../factories')
+const Factory = require('../factories')
 
 const App = require('../../src/App')
 const Trucate = require('../utils/Trucate')
+const Populate = require('../utils/Populate')
 
 describe('User', () => {
-  beforeEach(async () => {
-    await Trucate.removeAllCollections()
+  afterEach(async () => {
+    await Trucate.users()
   })
 
-  test('should be return a array of users', async () => {
+  it('should be return a array of users', async () => {
+    await Populate.users(5)
+
     const response = await request(App).get('/api/users')
 
     expect(response.status).toBe(200)
   })
 
-  test('should encrypt user password', async () => {
-    const user = await factory.create('User', {
+  it('should encrypt user password', async () => {
+    const user = await Factory.create('User', {
       password: 'mypass'
     })
 
