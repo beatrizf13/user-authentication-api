@@ -1,36 +1,28 @@
 /* eslint-disable */
 const request = require('supertest')
 const bcrypt = require('bcryptjs')
-const Factory = require('../factories')
 
 const App = require('../../src/App')
 const Trucate = require('../utils/Trucate')
 const Populate = require('../utils/Populate')
 
-const User = require('../../src/Models/UserModel')
-
 describe('User', () => {
-  afterAll(() => setTimeout(() => process.exit(), 1000))
+  afterAll(() => setTimeout(() => process.exit(), 5000))
 
   afterEach(async () => {
     await Trucate.users()
   })
 
-  it('should be created a user', async done => {
-    const user = await Factory.create('User', {
-      fullName: 'Doe'
-    })
+  it('should be created a user in database', async done => {
+    const user = await Populate.user()
 
     expect(user).toHaveProperty('_id')
-    expect(user).toHaveProperty('fullName', 'Doe')
 
     done()
   })
 
   it('should encrypt user password', async done => {
-    const user = await Factory.create('User', {
-      password: 'mypass123'
-    })
+    const user = await Populate.user(null, null, 'mypass123')
 
     const compareHash = await bcrypt.compare('mypass123', user.password)
 
@@ -50,11 +42,13 @@ describe('User', () => {
   })
 
   it('should be return one user', async done => {
-    const user = await Populate.user()
+    const user = await Populate.user('Foo')
 
     const response = await request(App).get(`/api/users/${user._id}`)
 
     expect(response.status).toBe(200)
+
+    expect(response.body).toHaveProperty('fullName', 'Foo')
 
     done()
   })
@@ -74,11 +68,9 @@ describe('User', () => {
   })
 
   it('should be update a user', async done => {
-    let user = await Factory.create('User', {
-      fullName: 'Doe'
-    })
+    const user = await Populate.user('Doe')
 
-    let response = await request(App)
+    const response = await request(App)
       .put(`/api/users/${user._id}`)
       .send({
         fullName: 'Foo'
@@ -86,9 +78,7 @@ describe('User', () => {
 
     expect(response.status).toBe(200)
 
-    user = await User.findById(user._id)
-
-    expect(user).toHaveProperty('fullName', 'Foo')
+    expect(response.body).toHaveProperty('fullName', 'Foo')
 
     done()
   })

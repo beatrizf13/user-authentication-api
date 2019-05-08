@@ -1,9 +1,10 @@
 const express = require('express')
 
 const UserController = require('../Controllers/UserController')
+const AuthMiddlewares = require('../Middlewares/Authenticate')
 
 class Routes {
-  constructor () {
+  publicRoutes () {
     const routes = express.Router()
 
     routes.post('/authenticate', UserController.authenticate)
@@ -12,6 +13,20 @@ class Routes {
     routes.post('/users', UserController.store)
     routes.put('/users/:id', UserController.update)
     routes.delete('/users/:id', UserController.destroy)
+
+    return routes
+  }
+
+  privateRoutes () {
+    const routes = express.Router()
+
+    routes.use(AuthMiddlewares.verifyToken)
+
+    routes.get('/app', (req, res) => {
+      res.send({
+        app: 'app'
+      })
+    })
 
     return routes
   }

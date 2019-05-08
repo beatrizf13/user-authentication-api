@@ -1,12 +1,10 @@
 const jwt = require('jsonwebtoken')
-const authConfig = require('../../config/secret.json')
+const Config = require('../../src/Config')
 
 class Authenticate {
-  constructor () {
-    this.verifyToken()
-  }
-
   verifyToken (req, res, next) {
+    const authConfig = Config.getSecret()
+
     const authHeader = req.headers.authorization
 
     if (!authHeader) {
@@ -25,7 +23,7 @@ class Authenticate {
       return res.status(401).send({ error: 'token malformatted' })
     }
 
-    jwt.verify(token, authConfig.secret, (err, decoded) => {
+    jwt.verify(token, authConfig, (err, decoded) => {
       if (err) {
         return res.status(401).send({ error: 'token invalid' })
       }

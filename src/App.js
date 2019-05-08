@@ -7,6 +7,9 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
+const Database = require('./Database')
+const Routes = require('./Routes')
+
 class App {
   constructor () {
     this.app = express()
@@ -17,7 +20,7 @@ class App {
   }
 
   database () {
-    require('./Database')
+    Database.connection()
   }
 
   middlewares () {
@@ -29,7 +32,8 @@ class App {
   }
 
   routes () {
-    this.app.use('/api', require('./Routes'))
+    this.app.use('/api', Routes.publicRoutes())
+    this.app.use('/api', Routes.privateRoutes())
   }
 }
 
