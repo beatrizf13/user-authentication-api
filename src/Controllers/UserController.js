@@ -16,7 +16,7 @@ class UserController {
 
       return res.send(users)
     } catch (error) {
-      return res.status(400).send({ error })
+      return res.status(500).send({ error })
     }
   }
 
@@ -30,7 +30,7 @@ class UserController {
 
       return res.send(user)
     } catch (error) {
-      return res.status(400).send({ error })
+      return res.status(500).send({ error })
     }
   }
 
@@ -48,7 +48,7 @@ class UserController {
 
       return res.send({ user, token: generateToken({ id: user.id }) })
     } catch (error) {
-      return res.status(400).send({ error })
+      return res.status(500).send({ error })
     }
   }
 
@@ -67,8 +67,8 @@ class UserController {
       }
 
       res.send({ user, token: generateToken({ id: user.id }) })
-    } catch (erro0r) {
-      return res.status(400).send({ erro0r })
+    } catch (error) {
+      return res.status(500).send({ error })
     }
   }
 
@@ -90,7 +90,9 @@ class UserController {
         email = user.email
       }
 
-      if (!fullName) fullName = user.fullName
+      if (!fullName) {
+        fullName = user.fullName
+      }
 
       if (!password) {
         password = user.password
@@ -108,7 +110,7 @@ class UserController {
 
       return res.send(user)
     } catch (error) {
-      return res.status(400).send({ error })
+      return res.status(500).send({ error })
     }
   }
 
@@ -122,7 +124,7 @@ class UserController {
 
       return res.send()
     } catch (error) {
-      return res.status(400).send(error)
+      return res.status(500).send({ error })
     }
   }
 }
