@@ -2,3 +2,5 @@ __tests__/coverage/*
 !__tests__/coverage/.gitkeep
 
 node_modules
+
+yarn.lock

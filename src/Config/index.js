@@ -1,11 +1,11 @@
+/* eslint-disable no-unused-vars */
 class Config {
   constructor () {
-    this.getSecret()
+    const secret = 'ab681ab35f8f6ee19b2c119406982b56'
   }
 
   getSecret () {
-    const _secret = 'ab681ab35f8f6ee19b2c119406982b56'
-    return _secret
+    return this.secret
   }
 }
 

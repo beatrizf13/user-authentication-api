@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/Server",
-    "dev": "nodemon ./src/Server ignore ../__tests__",
+    "start": "node ./bin/Server",
+    "dev": "NODE_ENV=dev nodemon ./bin/Server --ignore './__tests__'",
     "test": "NODE_ENV=test jest"
   },
   "dependencies": {
