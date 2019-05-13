@@ -1,4 +1,4 @@
-const User = require('../../src/Models/UserModel')
+const User = require('../../src/App/Models/UserModel')
 
 class Trucate {
   async users () {

@@ -1,13 +1,15 @@
 const express = require('express')
 
-const UserController = require('../Controllers/UserController')
-const AuthMiddlewares = require('../Middlewares/Authenticate')
+const UserController = require('../App/Controllers/UserController')
+const SessionController = require('../App/Controllers/SessionController')
+const AuthMiddleware = require('../App/Middlewares/Authenticate')
 
 class Routes {
   publicRoutes () {
     const routes = express.Router()
 
-    routes.post('/authenticate', UserController.authenticate)
+    routes.post('/sessions', SessionController.store)
+
     routes.get('/users', UserController.index)
     routes.get('/users/:id', UserController.show)
     routes.post('/users', UserController.store)
@@ -20,7 +22,7 @@ class Routes {
   privateRoutes () {
     const routes = express.Router()
 
-    routes.use(AuthMiddlewares.verifyToken)
+    routes.use(AuthMiddleware.verifyToken)
 
     routes.get('/app', (req, res) => {
       res.send({

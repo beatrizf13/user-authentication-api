@@ -7,8 +7,8 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
-const Database = require('./Database')
-const Routes = require('./Routes')
+const Database = require('./Database/Database')
+const Routes = require('./Routes/Routes')
 
 class App {
   constructor () {

@@ -3,14 +3,9 @@ const request = require('supertest')
 
 const App = require('../../src/App')
 const Trucate = require('../utils/Trucate')
-const Factory = require('../factories')
+const Factory = require('../utils/Factory/User')
 
 describe('User', () => {
-  beforeEach(async done => {
-    await Trucate.users()
-    done()
-  })
-
   afterEach(async done => {
     await Trucate.users()
     done()
@@ -22,7 +17,7 @@ describe('User', () => {
     })
 
     const response = await request(App)
-      .post('/api/authenticate')
+      .post('/api/sessions')
       .send({
         email: user.email,
         password: 'mypass123'
@@ -39,7 +34,7 @@ describe('User', () => {
     })
 
     const response = await request(App)
-      .post('/api/authenticate')
+      .post('/api/sessions')
       .send({
         email: user.email,
         password: 'mypass'
@@ -56,7 +51,7 @@ describe('User', () => {
     })
 
     const response = await request(App)
-      .post('/api/authenticate')
+      .post('/api/sessions')
       .send({
         email: user.email,
         password: 'mypass123'
@@ -73,7 +68,7 @@ describe('User', () => {
     })
 
     const response = await request(App)
-      .post('/api/authenticate')
+      .post('/api/sessions')
       .send({
         email: user.email,
         password: '123456'
@@ -86,7 +81,7 @@ describe('User', () => {
 
   it('should not authenticate when user not found', async done => {
     const response = await request(App)
-      .post('/api/authenticate')
+      .post('/api/sessions')
       .send({
         fullName: 'Foo',
         email: 'test@email.com',
@@ -104,7 +99,7 @@ describe('User', () => {
     })
 
     let response = await request(App)
-      .post('/api/authenticate')
+      .post('/api/sessions')
       .send({
         email: user.email,
         password: 'mypass123'

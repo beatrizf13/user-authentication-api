@@ -1,5 +1,5 @@
 const faker = require('faker')
-const User = require('../../src/Models/UserModel')
+const User = require('../../src/App/Models/UserModel')
 
 class Populate {
   async users (quantity) {

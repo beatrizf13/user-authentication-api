@@ -1,6 +1,6 @@
 const faker = require('faker')
 const { factory } = require('factory-girl')
-const User = require('../../src/Models/UserModel')
+const User = require('../../../src/App/Models/UserModel')
 
 class Factory {
   constructor () {

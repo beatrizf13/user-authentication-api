@@ -4,11 +4,11 @@ const bcrypt = require('bcryptjs')
 
 const App = require('../../src/App')
 const Trucate = require('../utils/Trucate')
-const Factory = require('../factories')
+const Factory = require('../utils/Factory/User')
 const Populate = require('../utils/Populate')
 
 describe('User', () => {
-  beforeEach(async done => {
+  afterEach(async done => {
     await Trucate.users()
     done()
   })

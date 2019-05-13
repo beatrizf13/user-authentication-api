@@ -1,12 +1,11 @@
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 const User = require('../Models/UserModel')
-
-const secretConfig = require('../Config/').getSecret()
+const secret = require('../../Config/Secret').getSecret()
 
 function generateToken (params = {}) {
-  return jwt.sign(params, secretConfig, { expiresIn: 86400 })
+  return jwt.sign(params, secret, { expiresIn: 86400 })
 }
 
 class UserController {
@@ -46,32 +45,14 @@ class UserController {
 
       user.password = undefined
 
-      return res.send({ user, token: generateToken({ id: user.id }) })
+      return res.send({
+        user,
+        token: generateToken({ id: user.id })
+      })
     } catch (error) {
       return res.status(500).send({ error })
     }
   }
-
-  async authenticate (req, res) {
-    try {
-      const { email, password } = req.body
-
-      const user = await User.findOne({ email }).select('+password')
-
-      if (!user) {
-        return res.status(400).send({ error: 'user not found' })
-      }
-
-      if (!(await bcrypt.compare(password, user.password))) {
-        return res.status(400).send({ error: 'invalid password' })
-      }
-
-      res.send({ user, token: generateToken({ id: user.id }) })
-    } catch (error) {
-      return res.status(500).send({ error })
-    }
-  }
-
   async update (req, res) {
     try {
       const user = await User.findById(req.params.id)
