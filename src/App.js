@@ -20,7 +20,7 @@ class App {
     this.middlewares()
     this.routes()
 
-    Email.send('azz.felix7@gmail.com', 'Testing', 'O<br/>lá')
+    Email.send('azz.felix7@gmail.com', 'Testing', 'Hello,<br/> >.<')
   }
 
   database () {
