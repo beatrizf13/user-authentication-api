@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/Server",
+    "start": "NODE_ENV=production node ./bin/Server",
     "dev": "NODE_ENV=dev nodemon ./bin/Server --ignore './__tests__'",
     "test": "NODE_ENV=test jest"
   },
@@ -16,7 +16,8 @@
     "express": "~4.16.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.20",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "nodemailer": "^6.1.1"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
