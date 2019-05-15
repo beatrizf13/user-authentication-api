@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../Models/UserModel')
 const secret = require('../../Config/Secret').getSecret()
 
-function generateToken (params = {}) {
+function generateJWTToken (params = {}) {
   return jwt.sign(params, secret, { expiresIn: 86400 })
 }
 
@@ -47,7 +47,7 @@ class UserController {
 
       return res.send({
         user,
-        token: generateToken({ id: user.id })
+        token: generateJWTToken({ id: user._id })
       })
     } catch (error) {
       return res.status(500).send({ error })
