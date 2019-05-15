@@ -10,8 +10,6 @@ const logger = require('morgan')
 const Database = require('./Database/Database')
 const Routes = require('./Routes/Routes')
 
-const Email = require('./Services/Email')
-
 class App {
   constructor () {
     this.app = express()
@@ -19,8 +17,6 @@ class App {
     this.database()
     this.middlewares()
     this.routes()
-
-    Email.send('azz.felix7@gmail.com', 'Testing', 'Hello,<br/> >.<')
   }
 
   database () {
