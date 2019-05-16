@@ -8,7 +8,7 @@ const Factory = require('../utils/Factory/User')
 const Populate = require('../utils/Populate')
 
 describe('User', () => {
-  afterEach(async done => {
+  beforeEach(async done => {
     await Trucate.users()
     done()
   })
