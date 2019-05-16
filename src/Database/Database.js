@@ -3,14 +3,9 @@ const mongoose = require('mongoose')
 
 class Database {
   connection () {
-    mongoose.connect(
-      `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${
-        process.env.DB_HOST
-      }/${process.env.DB_NAME}`,
-      {
-        useNewUrlParser: true
-      }
-    )
+    mongoose.connect(process.env.MONGO_CONNECTION, {
+      useNewUrlParser: true
+    })
 
     mongoose.set('useCreateIndex', true)
     mongoose.Promise = global.Promise
